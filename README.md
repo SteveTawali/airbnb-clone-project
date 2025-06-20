@@ -37,3 +37,29 @@ Writes and runs tests for backend functionality. Ensures all APIs behave as expe
 
 ### Documentation Lead  
 Creates and maintains technical documentation including API specs, database diagrams, and setup instructions. Helps the team and future contributors understand the project structure and functionality.
+
+## Technology Stack
+
+### Django  
+A high-level Python web framework used to build the backend logic and RESTful APIs for the application.
+
+### Django REST Framework (DRF)  
+An extension of Django that simplifies the creation of powerful and flexible REST APIs.
+
+### PostgreSQL  
+A reliable and scalable relational database system used to store and manage all structured data such as users, properties, bookings, and payments.
+
+### GraphQL  
+A query language that allows clients to request exactly the data they need, reducing over-fetching and under-fetching of information.
+
+### Celery  
+Handles background tasks like sending confirmation emails or processing asynchronous events such as payment notifications.
+
+### Redis  
+Used for caching and managing asynchronous task queues with Celery, helping improve application speed and responsiveness.
+
+### Docker  
+Containerizes the backend environment, ensuring consistency across development, testing, and production.
+
+### GitHub Actions  
+Automates testing and deployment processes, enabling continuous integration and continuous delivery (CI/CD).
