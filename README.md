@@ -63,3 +63,99 @@ Containerizes the backend environment, ensuring consistency across development, 
 
 ### GitHub Actions  
 Automates testing and deployment processes, enabling continuous integration and continuous delivery (CI/CD).
+
+## Database Design
+
+The backend uses a relational database to store and manage data for the application. Key entities and their relationships are outlined below:
+
+### 1. Users
+- `id`: Unique identifier
+- `username`: Unique name for login
+- `email`: User's email address
+- `password`: Encrypted password
+- `is_host`: Boolean to check if user can list properties
+
+### 2. Properties
+- `id`: Unique identifier
+- `owner_id`: Foreign key to Users
+- `title`: Property name
+- `description`: Property details
+- `location`: Address or city
+
+**Relation**: A user (host) can own multiple properties.
+
+### 3. Bookings
+- `id`: Unique identifier
+- `user_id`: Foreign key to Users
+- `property_id`: Foreign key to Properties
+- `check_in`: Start date
+- `check_out`: End date
+
+**Relation**: A user can have many bookings; a booking belongs to one property.
+
+### 4. Reviews
+- `id`: Unique identifier
+- `user_id`: Foreign key to Users
+- `property_id`: Foreign key to Properties
+- `rating`: Integer score
+- `comment`: Text review
+
+**Relation**: A user can leave multiple reviews; a property can have many reviews.
+
+### 5. Payments
+- `id`: Unique identifier
+- `booking_id`: Foreign key to Bookings
+- `amount`: Payment amount
+- `status`: e.g., “completed”, “pending”
+- `payment_date`: Timestamp
+
+**Relation**: Each payment is linked to a booking.
+
+## Feature Breakdown
+
+### User Management  
+Allows users to register, log in, and manage their profiles. Hosts can create and update property listings, while guests can manage their bookings and account settings.
+
+### Property Management  
+Enables hosts to add new listings, update details, or remove properties. Users can browse listings based on location, price, and availability.
+
+### Booking System  
+Provides functionality for users to book available properties. Includes features for selecting dates, confirming availability, and canceling bookings.
+
+### Payment Integration  
+Handles secure payment processing for bookings. Tracks payment status and generates payment records associated with each reservation.
+
+### Review System  
+Lets users rate and review properties after their stay. Helps maintain quality and trust between guests and hosts.
+
+### API Documentation  
+Uses OpenAPI and GraphQL to provide clear, structured documentation for all available endpoints and queries.
+
+## API Security
+
+To protect user data and ensure secure operations, the following security measures will be implemented:
+
+- **Authentication**: Uses JWT or token-based authentication to ensure only registered users can access protected resources.
+- **Authorization**: Ensures users can only perform actions allowed by their role (e.g., only hosts can edit listings).
+- **Rate Limiting**: Prevents abuse of APIs by limiting the number of requests from a single user or IP.
+- **Data Validation**: Sanitizes input to prevent injection attacks and ensure only valid data is stored.
+- **HTTPS**: Encrypts all data in transit to protect user information and login credentials.
+
+**Why It Matters**:
+- **User Data Protection**: Secures sensitive data such as passwords, emails, and bookings.
+- **Transaction Security**: Ensures payments are safe and tamper-proof.
+- **System Stability**: Prevents spamming, scraping, and DoS attacks.
+
+## CI/CD Pipeline
+
+CI/CD (Continuous Integration and Continuous Deployment) automates the testing and deployment of code changes.
+
+### Why It's Important:
+- Speeds up development by catching bugs early
+- Ensures reliable and consistent deployments
+- Reduces manual effort and human error
+
+### Tools Used:
+- **GitHub Actions**: Automates running tests and deploying updates to staging/production.
+- **Docker**: Packages the app in a consistent container for all environments.
+- **pytest / unittest**: Used to run backend tests during the CI process.
